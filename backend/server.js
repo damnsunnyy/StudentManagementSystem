@@ -5,22 +5,39 @@ const cors = require("cors");
 const Student = require("./models/Student");
 
 const app = express();
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" }));
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173").split(",").map((origin) => origin.trim());
+app.use(cors({ origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)) }));
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok" }));
 
 app.get("/api/students", async (req, res, next) => {
   try {
-    const { search = "", course = "" } = req.query;
+    const { search = "", course = "", department = "", status = "", feeStatus = "" } = req.query;
     const query = {};
     if (search) query.$or = [
       { name: { $regex: search, $options: "i" } },
       { email: { $regex: search, $options: "i" } },
       { course: { $regex: search, $options: "i" } },
+      { studentId: { $regex: search, $options: "i" } },
+      { department: { $regex: search, $options: "i" } },
     ];
     if (course) query.course = course;
+    if (department) query.department = department;
+    if (status) query.status = status;
+    if (feeStatus) query.feeStatus = feeStatus;
     res.json(await Student.find(query).sort({ createdAt: -1 }));
+  } catch (error) { next(error); }
+});
+
+app.get("/api/dashboard", async (_req, res, next) => {
+  try {
+    const [total, active, departments, feeDue, attendance] = await Promise.all([
+      Student.countDocuments(), Student.countDocuments({ status: "Active" }),
+      Student.distinct("department"), Student.countDocuments({ feeStatus: "Due" }),
+      Student.aggregate([{ $group: { _id: null, average: { $avg: "$attendance" } } }]),
+    ]);
+    res.json({ total, active, departments: departments.filter(Boolean).length, feeDue, averageAttendance: Math.round(attendance[0]?.average || 0) });
   } catch (error) { next(error); }
 });
 
