@@ -1,25 +1,28 @@
-# Student Management System
+# Evergreen College Portal
 
-A MERN student directory for creating, searching, filtering, updating, deleting, and exporting student records. This is a full-stack local application: the React interface calls an Express API backed by MongoDB.
+A dark forest themed MERN college management proof of concept for maintaining a college student register and tracking academic standing.
 
 ## Features
 
-- Search by student name, email, or course
-- Filter records by course
-- Create, edit, delete, and export student records
-- REST endpoints with input validation and database error handling
-- Vite + React client and Express + Mongoose API
+- Campus dashboard with enrollment, active student, department and attendance summaries
+- Student profiles with unique student ID, contact details, program, department, year, semester and age
+- Enrollment status, attendance percentage and fee status tracking
+- Create, update and delete student records
+- Search across student name, email, student ID and department
+- Department and enrollment status filters; sort by name, recent enrollment or attendance
+- Export the current student list to CSV
+- REST API input validation, duplicate email / ID handling and database error responses
+- Responsive forest green interface
 
-## Requirements
-
-- Node.js 20.19+ or 22.12+
-- MongoDB Community 8.0 or a MongoDB connection string
+This is a focused college administration PoC. It does not yet include authentication, role permissions, faculty records, timetable management, or payment processing.
 
 ## Run locally
 
-Start the API in one terminal:
+Requirements: Node.js 20.19+ or 22.12+ and MongoDB 8.0+ (local or Atlas).
 
-```bash
+Start the API:
+
+```sh
 cd backend
 npm install
 cp .env.example .env
@@ -28,20 +31,34 @@ npm run dev
 
 Start the frontend in another terminal:
 
-```bash
+```sh
 cd frontend
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite (usually `http://localhost:5173`). MongoDB defaults to `mongodb://127.0.0.1:27017/collegeDB`; set `MONGODB_URI` in `backend/.env` to use another database. `PORT` defaults to `5000`; set `VITE_API_URL` in `frontend/.env` to point the browser client at a deployed API.
+Vite prints the local URL (usually `http://localhost:5173`). The backend listens on port 5000 and uses `mongodb://127.0.0.1:27017/collegeDB` by default.
 
 ## API
 
-- `GET /api/students` — list records; optional `search` and `course` query parameters
-- `POST /api/students` — add a student
-- `PUT /api/students/:id` — update a student
-- `DELETE /api/students/:id` — delete a student
 - `GET /api/health` — API status
+- `GET /api/dashboard` — enrollment and attendance summary
+- `GET /api/students` — list records; accepts `search`, `course`, `department`, `status` and `feeStatus`
+- `POST /api/students` — enroll a student
+- `PUT /api/students/:id` — update a student
+- `DELETE /api/students/:id` — remove a student
 
-The interface requires an API and database, so a static GitHub Pages site alone is not a live deployment of this app. Configure and deploy those services before sharing a hosted instance.
+## Deployment
+
+The repository includes a Render Blueprint in `render.yaml`. To publish the full MERN app:
+
+1. Create a MongoDB Atlas database and allow the Render service to connect to it.
+2. Open the [Render Blueprint deploy page](https://render.com/deploy?repo=https://github.com/damnsunnyy/StudentManagementSystem) and connect the repository.
+3. Set the requested `MONGODB_URI` secret on the API service. The Blueprint connects the frontend and API at the configured Render URLs.
+4. Once the deploy finishes, add the public frontend URL to this README under **Live demo**.
+
+The app needs a MongoDB connection string to run; a frontend-only GitHub Pages publish is not a live college management deployment.
+
+## Live demo
+
+Deployment pending: the app needs a MongoDB Atlas URI and a connected hosting account before a live URL can be published.

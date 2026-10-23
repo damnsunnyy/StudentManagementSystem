@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: evergreen-college-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: FRONTEND_URL
+        value: https://evergreen-college-portal.onrender.com
+
+  - type: web
+    name: evergreen-college-portal
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://evergreen-college-api.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
