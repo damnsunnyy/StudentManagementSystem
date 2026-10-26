@@ -1,11 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="g" x1="9" y1="7" x2="55" y2="58" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A78BFA"/><stop offset=".55" stop-color="#6952E8"/><stop offset="1" stop-color="#3E8DDE"/>
+    <linearGradient id="campus" x1="8" y1="6" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#304a35"/>
+      <stop offset="1" stop-color="#142019"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="20" y1="9" x2="44" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e0f09b"/>
+      <stop offset="1" stop-color="#9dbc67"/>
     </linearGradient>
   </defs>
-  <rect x="5" y="5" width="54" height="54" rx="18" fill="url(#g)"/>
-  <path d="m14 27 18-10 18 10-18 10-18-10Z" stroke="white" stroke-width="3.4" stroke-linejoin="round"/>
-  <path d="M21 31v10c6 5 16 5 22 0V31M50 28v12" stroke="white" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="50" cy="43" r="2.5" fill="white"/>
+  <rect x="4" y="4" width="56" height="56" rx="18" fill="url(#campus)"/>
+  <rect x="4.6" y="4.6" width="54.8" height="54.8" rx="17.4" stroke="#c1d895" stroke-opacity=".34" stroke-width="1.2"/>
+  <path d="M13 28.2c5.6-2.4 11.2-1.6 19 3.1 7.8-4.7 13.4-5.5 19-3.1v18c-5.7-2.3-11.5-1.5-19 3.2-7.5-4.7-13.3-5.5-19-3.2v-18Z" fill="#21372a" stroke="#e4eadf" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 31.5v17.8" stroke="#dce7d5" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M32 29V18.5" stroke="url(#leaf)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M32.1 21.2c-.6-5.7-4-8.9-10.2-9.3.3 6.2 3.5 9.4 10.2 9.3Z" fill="url(#leaf)"/>
+  <path d="M32.1 17.3c.6-5.7 4-8.9 10.2-9.3-.3 6.2-3.5 9.4-10.2 9.3Z" fill="#b7d47d"/>
+  <path d="M18.5 34.5c3.5-.7 6.3.1 9.2 1.8M45.5 34.5c-3.5-.7-6.3.1-9.2 1.8" stroke="#a8bf84" stroke-opacity=".8" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="49.5" cy="17" r="2" fill="#e0f09b"/>
 </svg>
